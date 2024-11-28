@@ -1,0 +1,46 @@
+.image-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+.layer {
+    position: absolute; /* Notwendig für z-index */
+    width: 100%;
+}
+
+.layer:nth-child(1) {
+    z-index: 10; /* Ebene 0 */
+}
+
+.layer:nth-child(2) {
+    z-index: 9;  /* Ebene 1 */
+}
+
+.layer:nth-child(3) {
+    z-index: 8;  /* Ebene 2 */
+}
+
+.layer:nth-child(4) {
+    z-index: 7;  /* Ebene 3 */
+}
+
+.layer:nth-child(5) {
+    z-index: 6;  /* Ebene 4 */
+}
+
+.layer:nth-child(6) {
+    z-index: 5;  /* Ebene 5 */
+}
+
+.layer:nth-child(7) {
+    z-index: 4;  /* Ebene 6 */
+}
+
+.layer:nth-child(8) {
+    z-index: 3;  /* Ebene 7 */
+}
+
+.layer:nth-child(9) {
+    z-index: 2;  /* Ebene 8 */
+}

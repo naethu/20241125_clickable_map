@@ -1,0 +1,49 @@
+.filtercontent-animated {
+    position: relative;
+    background-color: #ffffff;
+    width: 100%;
+    min-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 12px;
+    border-radius: 8px;
+    overflow: hidden; /* Wichtig für den animierten Übergang */
+    min-height: 50px; /* Start-Höhe des Containers */
+    max-height: 100%; /* Maximale Höhe */
+    transition: max-height 0.6s ease, padding 0.6s ease, min-height 0.6s ease;
+    justify-content: center; /* Vertikale Zentrierung */
+}
+
+.filter-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+    padding: 20px;
+}
+
+.filter-title-text {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 30px;
+    font-family: DIN, Helvetica, Arial, sans-serif !important;
+    margin-right: 40px; /* Platz für den Pfeil am rechten Rand */
+    display: flex; /* Flexbox für Zentrierung */
+    justify-content: center; /* Horizontale Zentrierung */
+    align-items: center; /* Vertikale Zentrierung */
+    width: 100%; /* Nimmt den gesamten Platz des Containers ein */
+    text-align: center; /* Text horizontal zentrieren */
+}
+
+.arrow-icon {
+    position: absolute; /* Absolut positioniert innerhalb des Containers */
+    right: 20px; /* Abstand vom rechten Rand */
+    top: 50%; /* Vertikal zentrieren */
+    transform: translateY(-50%); /* Exakte Vertikale Zentrierung */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}

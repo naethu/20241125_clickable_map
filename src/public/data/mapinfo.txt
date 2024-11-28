@@ -1,0 +1,10 @@
+This folder "src/data" should containt the following files that are located on the server and need to be added manually:
+ebene0.svg
+ebene1.png
+ebene2.svg
+ebene3.png
+ebene4.svg
+ebene5.png
+ebene6.svg
+ebene7.svg
+ebene8.png
