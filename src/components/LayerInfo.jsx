@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './LayerInfo.css';
 
 const CombinedMap = () => {
@@ -23,22 +23,31 @@ const CombinedMap = () => {
     const handleClickOnLayer = async (e) => {
         if (e.target.tagName === 'path') {
             const elementId = e.target.getAttribute('id');
-            const elementType = e.target.tagName; // 'path'
 
             // Hole die Daten von der API
             try {
                 const response = await fetch(`http://10.35.4.64:8000/api/graze/${elementId}`);
                 const data = await response.json();
 
-                // Verarbeite die Antwort und erstelle den Popup-Inhalt
-                const content = data.map((item, index) => (
-                    <div key={index}>
-                        <strong>{item.farmers_group_graze_name}</strong><br />
-                        {item.farmers_group_species}
-                    </div>
-                ));
+                // Prüfe, ob Daten vorhanden sind
+                if (!data || !data.farmers_group_graze_name || !data.farmers_group_species) {
+                    return; // Keine Daten, daher kein Popup
+                }
 
-                // Zeige das Popup mit den API-Daten
+                // Beispieltext für den zusätzlichen Abschnitt
+                const additionalText = data.farmers_group_species
+                    ? `Die ${data.farmers_group_species} kommt in der Region {Region} vor und ist bekannt für seine {Merkmal}. Die Rasse wurde bewusst hergezüchtet.`
+                    : "Keine weiteren Informationen verfügbar.";
+
+                const content = (
+                    <div>
+                        <strong>{data.farmers_group_graze_name}</strong><br />
+                        {data.farmers_group_species}<br />
+                        {additionalText} {/* Hier wird der zusätzliche Text hinzugefügt */}
+                    </div>
+                );
+
+                // Zeige das Popup mit den API-Daten und dem zusätzlichen Text
                 showPopup(e, content);
             } catch (error) {
                 console.error('Fehler beim Abrufen der Daten:', error);
@@ -46,6 +55,24 @@ const CombinedMap = () => {
             }
         }
     };
+
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            const svgElement = document.querySelector('svg');
+            if (svgElement && !svgElement.contains(e.target)) {
+                setPopupContent(null); // Schließe das Popup, wenn außerhalb des SVG geklickt wird
+            }
+        };
+
+        // Event listener für Klicks im Dokument
+        document.addEventListener('click', handleClickOutside);
+
+        // Cleanup der Event Listener
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
 
     return (
         <div>
@@ -353,12 +380,12 @@ const CombinedMap = () => {
                 <div
                     className="popup"
                     style={{
-                        left: popupContent.position.x,
-                        top: popupContent.position.y,
-                        position: 'absolute', // Ensure it's placed on the page
+                        position: 'absolute',
+                        left: `${popupContent.position.x}px`,
+                        top: `${popupContent.position.y}px`,
                     }}
                 >
-                    <p>{popupContent.content}</p>
+                    {popupContent.content}
                 </div>
             )}
         </div>
